@@ -1,3 +1,4 @@
+import assets
 import os
 import time
 
@@ -8,6 +9,9 @@ def clear():
 
 
 def main():
+    print(assets.logo)
+    clear()
+
     word = 'hello'
     dashes = ['_' for _ in range(len(word))]
     guesses = set()
