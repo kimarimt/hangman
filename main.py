@@ -1,6 +1,7 @@
 import assets
 import os
 import time
+import word
 
 
 def clear():
@@ -12,17 +13,17 @@ def main():
     print(assets.logo)
     clear()
 
-    word = 'hello'
-    dashes = ['_' for _ in range(len(word))]
+    hangman_word = word.get_word()
+    dashes = ['_' for _ in range(len(hangman_word))]
     guesses = set()
     lives = len(assets.stages)
 
-    while ''.join(dashes) != word and lives > 1:
+    while ''.join(dashes) != hangman_word and lives > 1:
         guess = input('Guess a letter: ')
 
         if guess not in guesses:
-            if guess in word:
-                for position, letter in enumerate(word):
+            if guess in hangman_word:
+                for position, letter in enumerate(hangman_word):
                     if guess == letter:
                         dashes[position] = letter
             else:
@@ -37,12 +38,13 @@ def main():
         print(f'Guesses: {", ".join(guesses)}')
         print(assets.stages[lives - 1])
     else:
-        if ''.join(dashes) == word:
+        if ''.join(dashes) == hangman_word:
             print('YOU WIN!')
         else:
-            print('GAME OVER!') 
+            print('GAME OVER!')
 
-        print(f'The word was {word}.')
+        print(f'The word was {hangman_word}.')
+
 
 if __name__ == '__main__':
     main()
