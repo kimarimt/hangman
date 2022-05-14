@@ -15,8 +15,9 @@ def main():
     word = 'hello'
     dashes = ['_' for _ in range(len(word))]
     guesses = set()
+    lives = len(assets.stages)
 
-    while ''.join(dashes) != word:
+    while ''.join(dashes) != word and lives > 1:
         guess = input('Guess a letter: ')
 
         if guess not in guesses:
@@ -25,7 +26,8 @@ def main():
                     if guess == letter:
                         dashes[position] = letter
             else:
-                print('Bad guess')
+                print('Incorrent guess. 1 life lost')
+                lives -= 1
         else:
             print(f'You already guessed {guess}')
 
@@ -33,7 +35,14 @@ def main():
         guesses.add(guess)
         print(f'Word: {"".join(dashes)}')
         print(f'Guesses: {", ".join(guesses)}')
+        print(assets.stages[lives - 1])
+    else:
+        if ''.join(dashes) == word:
+            print('YOU WIN!')
+        else:
+            print('GAME OVER!') 
 
+        print(f'The word was {word}.')
 
 if __name__ == '__main__':
     main()
