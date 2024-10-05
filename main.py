@@ -1,10 +1,11 @@
 import assets
 import helpers
+import word
 
 
 def main():
-    word = 'hello'
-    dashes = ['_' for _ in word]
+    hangman_word = word.fetch_word()
+    dashes = ['_' for _ in hangman_word]
     guesses = set()
     lives = len(assets.STAGES) - 1
     final_word = ''.join(dashes)
@@ -13,7 +14,7 @@ def main():
     input('Press any key to continue: ')
     helpers.clear()
 
-    while final_word != word and lives != 0:
+    while final_word != hangman_word and lives != 0:
         print(assets.STAGES[lives])
         print(f'\nWord: {final_word}')
         print(f'Guesses: {", ".join(guesses)}')
@@ -23,8 +24,8 @@ def main():
             print('Guesses should be one letter')
             helpers.clear()
             continue
-        elif guess in word:
-            for i, ch in enumerate(word):
+        elif guess in hangman_word:
+            for i, ch in enumerate(hangman_word):
                 if guess == ch:
                     dashes[i] = ch
 
@@ -41,7 +42,7 @@ def main():
         else:
             print('YOU WIN!', end=' ')
 
-        print(f'The word was {word}')
+        print(f'The word was {hangman_word}')
 
 
 if __name__ == '__main__':
